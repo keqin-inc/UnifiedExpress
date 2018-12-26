@@ -25,6 +25,7 @@ class ZTO {
     if(body.status) {
       return body.data[0];
     } else {
+      console.log(body);
       throw new Error('接口未成功返回数据', body);
     }
   }
@@ -93,7 +94,7 @@ class ZTO {
       return trace;
     });
 
-    let status = '';
+    let status = express.traces.length > 0 ? '运输中' : '查询不到';
     if(express.hasReject) {
       status = '拒收';
     } else if(express.delivering && !express.received) {

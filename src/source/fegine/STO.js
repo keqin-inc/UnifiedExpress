@@ -2,8 +2,18 @@ const Base = require('./base');
 
 class STO extends Base{
   async query(no, cfg) {
-    const data = await this.request(no, 'STO', cfg);
-    return this.format(data);
+    const body = await this.request(no, 'STO', cfg);
+    if(body.status === '0') {
+      return this.format(body.result);
+    } else if(body.status === '205') {
+      return {
+        status: '查询不到',
+        no,
+        traces: []
+      };
+    } else {
+      throw new Error('快递查询异常：', body);
+    }
   }
 
   sortTraces(traces) {
@@ -72,7 +82,7 @@ class STO extends Base{
       return trace;
     });
 
-    let status = '';
+    let status = express.traces.length > 0 ? '运输中' : '查询不到';
     if(express.hasReject) {
       status = '拒收';
     } else if(express.delivering && !express.received) {

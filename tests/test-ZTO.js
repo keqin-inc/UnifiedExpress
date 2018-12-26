@@ -3,6 +3,19 @@ require('dotenv').config();
 const UE = require('../');
 const ue = new UE;
 
+test('中通：不存在的快递', (t) => {
+  ue.query({
+    no: '7511306763020811',
+    company: '中通'
+  }).then(body => {
+    t.equal(body.no, '7511306763020811', 'NO');
+    t.equal(body.status, '查询不到', 'status');
+    t.equal(body.traces.length === 0, true, 'No traces');
+    t.end();
+  })
+  .catch(t.fail)
+});
+
 test('中通：签收', (t) => {
   ue.query({
     no: '75113067630208',

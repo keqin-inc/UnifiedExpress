@@ -11,10 +11,7 @@ class Base {
       headers,
       json: true
     });
-    if(body.status !== '0') {
-      throw new Error('接口请求出错:', body.msg, body);
-    }
-    return body.result;
+    return body;
   }
 }
 module.exports = Base;
