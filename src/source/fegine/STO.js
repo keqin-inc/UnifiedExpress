@@ -59,6 +59,10 @@ class STO extends Base{
         const [ remark ] = trace.split('-已签收');
         deliverRemark = remark;
         deliverDate = time;
+        // 拒签又反悔了
+        if(hasReject) {
+          hasReject = false;
+        }
       } else if(trace.indexOf('派送不成功-原因：') > -1) {
         delivering = true;
         const [ , remark ] = trace.split('派送不成功-原因：');
@@ -67,6 +71,11 @@ class STO extends Base{
         // 提前签收是错误的行为，重置掉
         if(received) {
           received = false;
+        }
+      } else if (trace.indexOf('-已装袋发往-') > -1 || trace.indexOf('-已发往-')) {
+        if(received || hasReject) {
+          // 先签收/拒签，再出现后面的物流状态，是退回信息，会干扰结果
+          break;
         }
       }
     }

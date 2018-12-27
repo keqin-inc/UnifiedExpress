@@ -38,7 +38,7 @@ test('申通：拒收', (t) => {
   }).then(body => {
     t.equal(body.no, '118115868901', 'NO');
     t.equal(body.status, '拒收', 'status');
-    t.equal(body.deliverDate, '2018-12-24 19:15:18', 'deliverDate');
+    t.equal(body.deliverDate, '2018-12-17 19:51:13', 'deliverDate');
     t.equal(body.traces.length > 0, true, 'Has traces');
     t.end();
   })
@@ -60,5 +60,21 @@ test('申通：派送中', (t) => {
   })
   .catch(t.fail)
 });
+
+// 基本都是派送中出现问题，后续会有更新，将导致测试用例过期
+test('申通：错误的拒签', (t) => {
+  ue.query({
+    no: '118115868416',
+    company: '申通'
+  }).then(body => {
+    t.equal(body.no, '118115868416', 'NO');
+    t.equal(body.status, '已签收', 'status');
+    t.equal(body.deliverDate, '2018-12-23 14:34:59', 'deliverDate');
+    t.equal(body.traces.length > 0, true, 'Has traces');
+    t.end();
+  })
+  .catch(t.fail)
+});
+
 
 
