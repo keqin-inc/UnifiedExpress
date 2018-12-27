@@ -61,19 +61,19 @@ test('中通：地址不够详细的签收件', (t) => {
 });
 
 // 另一个例子是：75113067630208
-test('中通：问题件', (t) => {
-  ue.query({
-    no: '75113073636413',
-    company: '中通'
-  }).then(body => {
-    t.equal(body.no, '75113073636413', 'NO');
-    t.equal(body.status, '派送中', 'status');
-    t.equal(body.deliverDate, '2018-12-08 10:46:44', 'deliverDate');
-    t.equal(body.traces.length > 0, true, 'Has traces');
-    t.equal(body.deliverRemark, '送无人，电话联系不上', 'deliverRemark');
-    t.end();
-  })
-  .catch(t.fail)
-});
+// test('中通：问题件', (t) => {
+//   ue.query({
+//     no: '75113073636413',
+//     company: '中通'
+//   }).then(body => {
+//     t.equal(body.no, '75113073636413', 'NO');
+//     t.equal(body.status, '派送中', 'status');
+//     t.equal(body.deliverDate, '2018-12-08 10:46:44', 'deliverDate');
+//     t.equal(body.traces.length > 0, true, 'Has traces');
+//     t.equal(body.deliverRemark, '送无人，电话联系不上', 'deliverRemark');
+//     t.end();
+//   })
+//   .catch(t.fail)
+// });
 
 
