@@ -69,6 +69,10 @@ class ZTO {
       } else if(trace.indexOf('签收') > -1) {
         received = true;
         deliverDate = scanDate;
+        const matches = trace.match(/签收人: (\S+?),/);
+        if (matches) {
+          deliverRemark = matches[1];
+        }
       }
       if(scanType === '问题件') {
         const match = trace.match(/原因：(.+)$/);
