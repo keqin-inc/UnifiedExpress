@@ -39,16 +39,12 @@ class STO extends Base{
         hasReject = true;
         deliverDate = time;
         // 提前签收是错误的行为，重置掉
-        if(received) {
-          received = false;
-        }
+        received = false;
       } else if(trace.indexOf('发件公司要求退回') > -1) {
         hasReject = true;
         deliverDate = time;
         // 提前签收是错误的行为，重置掉
-        if(received) {
-          received = false;
-        }
+        received = false;
         // 后面的物流状态是退回信息，会干扰结果
         break;
       } else if(trace.indexOf('派件中') > -1) {
@@ -60,26 +56,21 @@ class STO extends Base{
         deliverRemark = remark;
         deliverDate = time;
         // 拒签又反悔了
-        if(hasReject) {
-          hasReject = false;
-        }
+        hasReject = false;
       } else if(trace.indexOf('派送不成功-原因：') > -1) {
         delivering = true;
         const [ , remark ] = trace.split('派送不成功-原因：');
         deliverRemark = remark;
         deliverDate = time;
         // 提前签收是错误的行为，重置掉
-        if(received) {
-          received = false;
-        }
-      } else if (trace.indexOf('-已装袋发往-') > -1 || trace.indexOf('-已发往-')) {
+        received = false;
+      } else if (trace.indexOf('-已装袋发往-') > -1 || trace.indexOf('-已发往-') > -1) {
         if(received || hasReject) {
           // 先签收/拒签，再出现后面的物流状态，是退回信息，会干扰结果
           break;
         }
       }
     }
-    
     express.deliverRemark = deliverRemark;
     express.deliverDate = deliverDate;
     express.hasReject = hasReject;
