@@ -6,6 +6,7 @@
 |-----|------|----------------|----------------------|
 | 中通 |   ZTO|    中通开放平台  | https://zop.zto.com/ |
 | 申通 |  STO | 涪擎（阿里云市场）| https://market.aliyun.com/products/56928004/cmapi022273.html|
+| 圆通 |   YTO|    圆通开放平台  | http://open.yto.net.cn/ |
 
 未来将增加更多快递和接口支持
 
@@ -278,6 +279,14 @@ const ue = new UE({
     cfg:{
       appcode: '', //阿里云市场后台的 AppCode
     }
+  },
+  YTO: {
+    source: 'yto',
+    cfg: {
+      user_id: '', // 圆通 User_Id
+      app_key: '', // 圆通  App_Key
+      secret_key: '' // 圆通 Secret_Key
+    }
   }
 });
 ```
@@ -291,8 +300,12 @@ const ue = new UE({
 ZTO_KEY=
 ZTO_COMPANY_ID=
 FEGINE_APPCODE=
+YTO_USER_ID=
+YTO_APP_KEY=
+YTO_SECRET_KEY=
 ```
 
 # Changelog
+- 1.0.5 支持圆通开放平台的查询
 - 1.0.1 增加`查询不到`、`运输中`状态，并在接口异常时抛出错误
 - 1.0.0 第一版

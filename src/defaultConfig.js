@@ -12,5 +12,13 @@ module.exports = {
     cfg:{
       appcode: process.env['FEGINE_APPCODE']
     }
+  },
+  YTO: {
+    source: 'yto',
+    cfg:{
+      user_id: process.env['YTO_USER_ID'],
+      app_key: process.env['YTO_APP_KEY'],
+      secret_key: process.env['YTO_SECRET_KEY']
+    }
   }
 }
