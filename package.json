@@ -1,6 +1,6 @@
 {
   "name": "unifiedexpress",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "UnifiedExpress 快递跟踪信息统一解析库",
   "main": "src/index.js",
   "scripts": {

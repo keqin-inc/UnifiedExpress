@@ -2,7 +2,9 @@
 const alias = {
   '中通': 'ZTO',
   '申通': 'STO',
-  '圆通': 'YTO'
+  '圆通': 'YTO',
+  '圆通速递': 'YTO',
+  '圆通速递货到付款': 'YTO'
 };
 module.exports = function getAlias(company) {
   if(company in alias) {
