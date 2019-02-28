@@ -7,6 +7,7 @@
 | 中通 |   ZTO|    中通开放平台  | https://zop.zto.com/ |
 | 申通 |  STO | 涪擎（阿里云市场）| https://market.aliyun.com/products/56928004/cmapi022273.html|
 | 圆通 |   YTO|    圆通开放平台  | http://open.yto.net.cn/ |
+| 顺丰 |   SF |    顺丰丰桥接口  | https://qiao.sf-express.com |
 
 未来将增加更多快递和接口支持
 
@@ -223,11 +224,13 @@ ue.query({
 ```javascript
 ue.query({ 
   no: '',
-  company: '' 
+  company: '' ,
+  checkPhoneNo: '' // 可选参数
 });
 ```
 - no 为快递单号
 - company 为指定的快递公司，可以是中文（申通）或代码（STO）
+- checkPhoneNo 可选，当快递为顺丰时可使用，为收件人或发件人后手机号 4 位，验证订单。当丰桥账号已经绑定月结账号或使用的是其他快递公司时，可以省略。
 
 > 由于不同快递公司使用不同接口，自动根据单号识别公司存在误差，所以必须指定 `company` 参数
 
@@ -238,6 +241,7 @@ ue.query({
   deliverRemark: '自提件',
   deliverDate: '2018-12-27 14:06:25',
   hasReject: false,
+  returnNo: '',
   received: false,
   delivering: true,
   traces:
@@ -251,6 +255,7 @@ ue.query({
 - deliverDate: datetime 派送/签收时间，上报派送、签收的时间
 - hasReject: boolean 是否出现过退回信息，拒收、发件公司召回、错分件都有可能产生此信息，拒收以 status 为准
 - received: boolean 是否已签收
+- returnNo: 【顺丰特有】退件时的快递单号，其他快递公司的当前快递会直接追加退件物流状态，顺丰则单独返回单号。你大爷就是你大爷。
 - delivering: boolean 是否出现过派送中的信息
 - traces: array
   - msg: string  路由状态，在 traces 里目前仅此字段是统一的，其他字段由不同接口会返回不同字段；将来可能统一更多字段，例如时间
@@ -287,6 +292,13 @@ const ue = new UE({
       app_key: '', // 圆通  App_Key
       secret_key: '' // 圆通 Secret_Key
     }
+  },
+  SF: {
+    source: 'sf',
+    cfg: {
+      customer_code: '', // 顺丰丰桥顾客编码
+      checkword: '' // 顺丰丰桥校验码
+    }
   }
 });
 ```
@@ -303,9 +315,12 @@ FEGINE_APPCODE=
 YTO_USER_ID=
 YTO_APP_KEY=
 YTO_SECRET_KEY=
+SF_CUSTOMER_CODE=
+SF_CHECKWORD=
 ```
 
 # Changelog
+- 1.0.8 支持顺丰丰桥接口
 - 1.0.5 支持圆通开放平台的查询
 - 1.0.1 增加`查询不到`、`运输中`状态，并在接口异常时抛出错误
 - 1.0.0 第一版
