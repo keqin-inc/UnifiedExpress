@@ -1,7 +1,7 @@
 const Base = require('./base');
 
 class STO extends Base{
-  async query(no, cfg) {
+  async query({ no }, cfg) {
     const body = await this.request(no, 'STO', cfg);
     if(body.status === '0') {
       return this.format(body.result);
@@ -50,16 +50,16 @@ class STO extends Base{
       } else if(trace.indexOf('派件中') > -1) {
         delivering = true;
         deliverDate = time;
-      } else if(trace.indexOf('已签收') > -1) { // 已签收，签收人凭取货码签收。
-        received = true;
-        deliverRemark = '';
-        deliverDate = time;
-        // 拒签又反悔了
-        hasReject = false;
       } else if(trace.indexOf('-已签收') > -1) {
         received = true;
         const [ remark ] = trace.split('-已签收');
         deliverRemark = remark;
+        deliverDate = time;
+        // 拒签又反悔了
+        hasReject = false;
+      } else if(trace.indexOf('已签收') > -1) { // 已签收，签收人凭取货码签收。
+        received = true;
+        deliverRemark = '';
         deliverDate = time;
         // 拒签又反悔了
         hasReject = false;
