@@ -23,7 +23,7 @@ test('圆通：签收', (t) => {
   }).then(body => {
     t.equal(body.no, 'D00079319233', 'NO');
     t.equal(body.status, '已签收', 'status');
-    t.equal(body.deliverRemark, '802589808961219957', '签收人');
+    t.equal(body.deliverRemark, '', '签收人');
     t.equal(body.deliverDate, '2018-11-17 10:18:05', 'deliverDate');
     t.equal(body.traces.length > 0, true, 'Has traces');
     t.end();
