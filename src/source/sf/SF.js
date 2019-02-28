@@ -144,6 +144,7 @@ class SF {
         accept_address,
         opcode,
         accept_time: scanDate } of sortedTraces) {
+      // opcode 操作码参考文档： https://open.sf-express.com/doc/sf_openapi_document_V1.pdf
       switch (opcode) {
         case '80':
           hasReject = false;
