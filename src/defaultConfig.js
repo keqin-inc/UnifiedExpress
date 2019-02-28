@@ -2,23 +2,30 @@
 module.exports = {
   ZTO: {
     source: 'zto',
-    cfg:{
+    cfg: {
       key: process.env['ZTO_KEY'],
       company_id: process.env['ZTO_COMPANY_ID']
     }
   },
   STO: {
     source: 'fegine',
-    cfg:{
+    cfg: {
       appcode: process.env['FEGINE_APPCODE']
     }
   },
   YTO: {
     source: 'yto',
-    cfg:{
+    cfg: {
       user_id: process.env['YTO_USER_ID'],
       app_key: process.env['YTO_APP_KEY'],
       secret_key: process.env['YTO_SECRET_KEY']
+    }
+  },
+  SF: {
+    source: 'sf',
+    cfg: {
+      customer_code: process.env['SF_CUSTOMER_CODE'],
+      checkword: process.env['SF_CHECKWORD']
     }
   }
 }
