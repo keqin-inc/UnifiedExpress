@@ -43,7 +43,7 @@ class YTO {
     return express;
   }
 
-  async query(no, cfg) {
+  async query({ no }, cfg) {
     const data = await this.request(no, cfg);
     return data;
   }

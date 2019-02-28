@@ -30,7 +30,7 @@ class ZTO {
     }
   }
 
-  async query(no, cfg) {
+  async query({ no }, cfg) {
     if(!Array.isArray(no)) {
       no = [ no ];
     }
