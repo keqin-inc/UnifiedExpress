@@ -46,20 +46,20 @@ test('申通：拒收', (t) => {
 });
 
 // 基本都是派送中出现问题，后续会有更新，将导致测试用例过期
-test('申通：派送中', (t) => {
-  ue.query({
-    no: '118115898295',
-    company: '申通'
-  }).then(body => {
-    t.equal(body.no, '118115898295', 'NO');
-    t.equal(body.status, '派送中', 'status');
-    t.equal(body.deliverDate, '2018-12-25 13:42:24', 'deliverDate');
-    t.equal(body.traces.length > 0, true, 'Has traces');
-    t.equal(body.deliverRemark, '超派件,客户自取,电话：0794-4222009', 'deliverRemark');
-    t.end();
-  })
-  .catch(t.fail)
-});
+// test('申通：派送中', (t) => {
+//   ue.query({
+//     no: '118115898295',
+//     company: '申通'
+//   }).then(body => {
+//     t.equal(body.no, '118115898295', 'NO');
+//     t.equal(body.status, '派送中', 'status');
+//     t.equal(body.deliverDate, '2018-12-25 13:42:24', 'deliverDate');
+//     t.equal(body.traces.length > 0, true, 'Has traces');
+//     t.equal(body.deliverRemark, '超派件,客户自取,电话：0794-4222009', 'deliverRemark');
+//     t.end();
+//   })
+//   .catch(t.fail)
+// });
 
 // 基本都是派送中出现问题，后续会有更新，将导致测试用例过期
 test('申通：错误的拒签', (t) => {
