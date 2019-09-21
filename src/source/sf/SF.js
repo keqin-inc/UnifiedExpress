@@ -139,6 +139,7 @@ class SF {
     let deliverRemark = '';
     let deliverDate = '';
     let returnNo = '';
+    tracesLoop:
     for(let { 
         remark: trace,
         accept_address,
@@ -156,6 +157,13 @@ class SF {
             continue;
           }
           deliverRemark = trace;
+        break;
+        case '99':
+            hasReject = true;
+            received = false;
+            deliverDate = scanDate;
+            deliverRemark = trace;
+            break tracesLoop;
         break;
         case '44':
           hasReject = false;
