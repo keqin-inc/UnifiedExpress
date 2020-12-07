@@ -1,8 +1,8 @@
 const Base = require('./base');
 
-class STO extends Base{
+class JD extends Base {
   async query({ no }, cfg) {
-    const body = await this.request(no, 'STO', cfg);
+    const body = await this.request(no, 'JD', cfg);
     if(body.status === '0') {
       return this.format(body.result);
     } else if(body.status === '205') {
@@ -17,58 +17,31 @@ class STO extends Base{
   }
 
   format(record) {
-
+    
     const express = {
       no: record.number,
     }
     const sortedTraces = this.sortTraces(record.list);
   
-    let hasReject = false;
-    let delivering = false;
-    let received = false;
+    let hasReject = false; // 是否拒收
+    let delivering = false; // 是否正在派送中
+    let received = false; // 是否签收
     let deliverRemark = '';
     let deliverDate = '';
     for(let { status: trace, time } of sortedTraces) {
-      if(trace.indexOf('客户拒收') > -1) {
+      if(trace.indexOf('拒收') > -1) {
         hasReject = true;
         deliverDate = time;
         // 提前签收是错误的行为，重置掉
         received = false;
-      } else if(trace.indexOf('发件公司要求退回') > -1) {
-        hasReject = true;
-        deliverDate = time;
-        // 提前签收是错误的行为，重置掉
-        received = false;
-        // 后面的物流状态是退回信息，会干扰结果
-        break;
-      } else if(trace.indexOf('派件中') > -1) {
+      } else if(trace.indexOf('派送中') > -1) {
         delivering = true;
         deliverDate = time;
-      } else if(trace.indexOf('-已签收') > -1) {
+      } else if(trace.indexOf('签收') > -1 || trace.indexOf('代收') > -1) {
         received = true;
-        const [ remark ] = trace.split('-已签收');
-        deliverRemark = remark;
         deliverDate = time;
         // 拒签又反悔了
         hasReject = false;
-      } else if(trace.indexOf('已签收') > -1) { // 已签收，签收人凭取货码签收。
-        received = true;
-        deliverRemark = '';
-        deliverDate = time;
-        // 拒签又反悔了
-        hasReject = false;
-      } else if(trace.indexOf('派送不成功-原因：') > -1) {
-        delivering = true;
-        const [ , remark ] = trace.split('派送不成功-原因：');
-        deliverRemark = remark;
-        deliverDate = time;
-        // 提前签收是错误的行为，重置掉
-        received = false;
-      } else if (trace.indexOf('-已装袋发往-') > -1 || trace.indexOf('-已发往-') > -1) {
-        if(received || hasReject) {
-          // 先签收/拒签，再出现后面的物流状态，是退回信息，会干扰结果
-          break;
-        }
       }
     }
     express.deliverRemark = deliverRemark;
@@ -95,4 +68,4 @@ class STO extends Base{
   }
 }
 
-module.exports = new STO;
+module.exports = new JD();

@@ -27,5 +27,11 @@ module.exports = {
       customer_code: process.env['SF_CUSTOMER_CODE'],
       checkword: process.env['SF_CHECKWORD']
     }
+  },
+  JD: {
+    source: 'fegine',
+    cfg: {
+      appcode: process.env['FEGINE_APPCODE']
+    }
   }
 }

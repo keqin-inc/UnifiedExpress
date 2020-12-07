@@ -13,5 +13,11 @@ class Base {
     });
     return body;
   }
+
+  sortTraces(traces) {
+    return traces.sort((a, b) => {
+      return new Date(a.time) - new Date(b.time)
+    });
+  }
 }
 module.exports = Base;
