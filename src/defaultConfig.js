@@ -33,5 +33,11 @@ module.exports = {
     cfg: {
       appcode: process.env['FEGINE_APPCODE']
     }
+  },
+  YUNDA: {
+    source: 'fegine',
+    cfg: {
+      appcode: process.env['FEGINE_APPCODE']
+    }
   }
 }

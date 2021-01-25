@@ -8,7 +8,8 @@ const alias = {
   '顺丰': 'SF',
   '顺丰速运': 'SF',
   '顺丰速运货到付款': 'SF',
-  '京东物流': 'JD'
+  '京东物流': 'JD',
+  '韵达快递': 'YUNDA'
 };
 module.exports = function getAlias(company) {
   if(company in alias) {

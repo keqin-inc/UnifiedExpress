@@ -7,6 +7,7 @@
 | 中通 |   ZTO|    中通开放平台  | https://zop.zto.com/ |
 | 申通 |  STO | 涪擎（阿里云市场）| https://market.aliyun.com/products/56928004/cmapi022273.html|
 | 京东物流 |  JD | 涪擎（阿里云市场）| https://market.aliyun.com/products/56928004/cmapi022273.html|
+| 韵达快递 | YUNDA | 涪擎（阿里云市场）| https://market.aliyun.com/products/56928004/cmapi022273.html|
 | 圆通 |   YTO|    圆通开放平台  | http://open.yto.net.cn/ |
 | 顺丰 |   SF |    顺丰丰桥接口  | https://qiao.sf-express.com |
 
@@ -302,6 +303,12 @@ const ue = new UE({
     }
   },
   JD: {
+    source: 'fegine',
+    cfg:{
+      appcode: '', //阿里云市场后台的 AppCode
+    }
+  },
+  YUNDA: {
     source: 'fegine',
     cfg:{
       appcode: '', //阿里云市场后台的 AppCode
